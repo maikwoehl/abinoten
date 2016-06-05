@@ -14,11 +14,10 @@ POINTS_DIVIDER = 48
 def read_semester_grades(filename):
     """ Reads the semester grades from the given file """
     with open(filename[0], 'r') as grades:
+        points = 0        
+
         reader = csv.reader(grades, delimiter=';')
-        points = 0
-        lines = 0
-        for semester in reader:
-            lines += 1
+        for lines, semester in enumerate(reader):
             if len(semester) != 9:
                 raise IndexError("One of the semesters doesn't have the "
                                  "expected nine grades.\nLength: {} => {}"
@@ -40,7 +39,7 @@ def read_semester_grades(filename):
                 else:
                     points += grade
                        
-        if lines != 4:
+        if lines != 3:
             raise IndexError("The *.csv-file doesn't have the expected "
                              "four lines of semester grades.")
         
